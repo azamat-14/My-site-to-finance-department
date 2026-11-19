@@ -1,0 +1,642 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="ism"><br><br>
+    <input type="password" id="parol"><br><br>
+    <input type="submit" id="tugma" value="Yuborish">
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FINANCE PRO</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+header {
+    background: #102a43;
+    color: white;
+    padding: 22px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 span {
+    color: #38bdf8;
+}
+
+header p {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #cbd5e1;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 85px);
+}
+
+.sidebar {
+    width: 230px;
+    background: #163653;
+    padding: 20px 12px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #2563eb;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+h2 {
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 22px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0000000c;
+}
+
+.card p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: 21px;
+    color: #2563eb;
+    overflow-wrap: anywhere;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px #0000000c;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.primary:hover {
+    background: #1d4ed8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    color: #64748b;
+}
+
+.delete {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.result {
+    font-size: 23px;
+    font-weight: bold;
+    color: #2563eb;
+    margin-top: 15px;
+}
+
+@media(max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .container {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .sidebar button {
+        min-width: 125px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    header {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>FINANCE <span>PRO</span></h1>
+        <p>MOLIYA BO‘LIMI BOSHQARUV TIZIMI</p>
+    </div>
+    <div>● Tizim faol</div>
+</header>
+
+<div class="container">
+
+<aside class="sidebar">
+    <button class="active" onclick="showPage('home',this)">🏠 Bosh sahifa</button>
+    <button onclick="showPage('income',this)">💰 Daromadlar</button>
+    <button onclick="showPage('expense',this)">💸 Xarajatlar</button>
+    <button onclick="showPage('budget',this)">📊 Byudjet</button>
+    <button onclick="showPage('salary',this)">👨‍💼 Ish haqi</button>
+    <button onclick="showPage('reports',this)">📈 Hisobotlar</button>
+</aside>
+
+<main>
+
+<!-- BOSH SAHIFA -->
+<section id="home" class="page active">
+    <h2>Boshqaruv paneli</h2>
+    <p class="subtitle">Tashkilotning moliyaviy holati</p>
+
+    <div class="cards">
+        <div class="card">
+            <p>Jami daromad</p>
+            <h3 id="totalIncome">0</h3>
+        </div>
+
+        <div class="card">
+            <p>Jami xarajat</p>
+            <h3 id="totalExpense">0</h3>
+        </div>
+
+        <div class="card">
+            <p>Sof qoldiq</p>
+            <h3 id="balance">0</h3>
+        </div>
+
+        <div class="card">
+            <p>Xodimlar soni</p>
+            <h3 id="staffCount">0</h3>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>Moliyaviy ma'lumot</h3>
+        <p class="subtitle">Daromad va xarajatlarni nazorat qilish</p>
+        <p>Daromad: <b id="homeIncome">0</b></p>
+        <p style="margin-top:12px">Xarajat: <b id="homeExpense">0</b></p>
+    </div>
+</section>
+
+<!-- DAROMADLAR -->
+<section id="income" class="page">
+    <h2>Daromadlar</h2>
+    <p class="subtitle">Yangi daromadlarni tizimga kiriting</p>
+
+    <div class="panel">
+        <label>Daromad nomi</label>
+        <input id="incomeName" placeholder="Masalan: Mahsulot savdosi">
+
+        <label>Summa (so‘m)</label>
+        <input id="incomeAmount" type="number" placeholder="5000000" min="1">
+
+        <button class="primary" onclick="addIncome()">Daromadni saqlash</button>
+    </div>
+
+    <div class="panel">
+        <h3>Daromadlar ro‘yxati</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nomi</th>
+                    <th>Summa</th>
+                    <th>Amal</th>
+                </tr>
+            </thead>
+            <tbody id="incomeList"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- XARAJATLAR -->
+<section id="expense" class="page">
+    <h2>Xarajatlar</h2>
+    <p class="subtitle">Tashkilot xarajatlarini nazorat qilish</p>
+
+    <div class="panel">
+        <label>Xarajat nomi</label>
+        <input id="expenseName" placeholder="Masalan: Ofis ijarasi">
+
+        <label>Summa (so‘m)</label>
+        <input id="expenseAmount" type="number" placeholder="1000000" min="1">
+
+        <button class="primary" onclick="addExpense()">Xarajatni saqlash</button>
+    </div>
+
+    <div class="panel">
+        <h3>Xarajatlar ro‘yxati</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nomi</th>
+                    <th>Summa</th>
+                    <th>Amal</th>
+                </tr>
+            </thead>
+            <tbody id="expenseList"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- BYUDJET -->
+<section id="budget" class="page">
+    <h2>Byudjet rejalashtirish</h2>
+    <p class="subtitle">Byudjet va xarajatlarni solishtirish</p>
+
+    <div class="panel">
+        <label>Rejalashtirilgan byudjet (so‘m)</label>
+        <input type="number" id="plannedBudget" value="20000000">
+
+        <button class="primary" onclick="calculateBudget()">Hisoblash</button>
+
+        <div class="result" id="budgetResult">0 so‘m</div>
+        <p id="budgetMessage"></p>
+    </div>
+</section>
+
+<!-- ISH HAQI -->
+<section id="salary" class="page">
+    <h2>Ish haqi hisoblash</h2>
+    <p class="subtitle">Xodimning oylik maoshini hisoblash</p>
+
+    <div class="panel">
+        <label>Xodim ismi</label>
+        <input id="workerName" placeholder="Ism Familiya">
+
+        <label>Oylik maosh (so‘m)</label>
+        <input type="number" id="salaryAmount" placeholder="5000000">
+
+        <label>Ushlab qolish (%)</label>
+        <input type="number" id="deduction" value="0" min="0" max="100">
+
+        <button class="primary" onclick="calculateSalary()">Hisoblash</button>
+
+        <div class="result" id="salaryResult">0 so‘m</div>
+        <button class="primary" onclick="addWorker()">Xodimni qo‘shish</button>
+    </div>
+
+    <div class="panel">
+        <h3>Xodimlar ro‘yxati</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ism</th>
+                    <th>Sof maosh</th>
+                </tr>
+            </thead>
+            <tbody id="workerList"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- HISOBOTLAR -->
+<section id="reports" class="page">
+    <h2>Moliyaviy hisobotlar</h2>
+    <p class="subtitle">Umumiy moliyaviy natijalar</p>
+
+    <div class="panel">
+        <p>Jami daromad: <b id="reportIncome">0</b></p>
+        <br>
+        <p>Jami xarajat: <b id="reportExpense">0</b></p>
+        <br>
+        <p>Sof qoldiq: <b id="reportBalance">0</b></p>
+        <br>
+        <button class="primary" onclick="downloadReport()">Hisobotni yuklab olish</button>
+    </div>
+</section>
+
+</main>
+</div>
+
+<script>
+let incomes = [];
+let expenses = [];
+let workers = [];
+let currentSalary = 0;
+
+function money(number) {
+    return Number(number).toLocaleString("uz-UZ") + " so'm";
+}
+
+// Sahifalarni almashtirish
+function showPage(page, button) {
+    document.querySelectorAll(".page").forEach(item => {
+        item.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    document.querySelectorAll(".sidebar button").forEach(item => {
+        item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+}
+
+// Daromad qo‘shish
+function addIncome() {
+    let name = document.getElementById("incomeName").value.trim();
+    let amount = Number(document.getElementById("incomeAmount").value);
+
+    if (!name || amount <= 0 || !Number.isFinite(amount)) {
+        alert("Ma'lumotlarni to‘g‘ri kiriting!");
+        return;
+    }
+
+    incomes.push({name, amount});
+
+    document.getElementById("incomeName").value = "";
+    document.getElementById("incomeAmount").value = "";
+
+    update();
+}
+
+// Xarajat qo‘shish
+function addExpense() {
+    let name = document.getElementById("expenseName").value.trim();
+    let amount = Number(document.getElementById("expenseAmount").value);
+
+    if (!name || amount <= 0 || !Number.isFinite(amount)) {
+        alert("Ma'lumotlarni to‘g‘ri kiriting!");
+        return;
+    }
+
+    expenses.push({name, amount});
+
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
+
+    update();
+}
+
+// Xodim maoshini hisoblash
+function calculateSalary() {
+    let salary = Number(document.getElementById("salaryAmount").value);
+    let deduction = Number(document.getElementById("deduction").value);
+
+    if (!Number.isFinite(salary) || salary < 0 ||
+        !Number.isFinite(deduction) || deduction < 0 || deduction > 100) {
+        alert("Ma'lumotlarni to‘g‘ri kiriting!");
+        return;
+    }
+
+    currentSalary = salary - salary * deduction / 100;
+
+    document.getElementById("salaryResult").textContent =
+        money(currentSalary);
+}
+
+// Xodim qo‘shish
+function addWorker() {
+    let name = document.getElementById("workerName").value.trim();
+
+    if (!name || !document.getElementById("salaryAmount").value) {
+        alert("Xodim ismi va maoshini kiriting!");
+        return;
+    }
+
+    calculateSalary();
+
+    workers.push({name, salary: currentSalary});
+
+    document.getElementById("workerName").value = "";
+
+    update();
+}
+
+// Byudjet hisoblash
+function calculateBudget() {
+    let budget = Number(document.getElementById("plannedBudget").value);
+
+    if (!Number.isFinite(budget) || budget < 0) {
+        alert("Byudjetni to‘g‘ri kiriting!");
+        return;
+    }
+
+    let total = expenses.reduce((sum, item) => sum + item.amount, 0);
+    let difference = budget - total;
+
+    document.getElementById("budgetResult").textContent =
+        money(difference);
+
+    document.getElementById("budgetMessage").textContent =
+        difference >= 0
+        ? "Byudjet doirasida."
+        : "Rejalashtirilgan byudjetdan oshib ketdi!";
+}
+
+// Ma'lumotlarni yangilash
+function update() {
+    let totalIncome = incomes.reduce((sum, item) => sum + item.amount, 0);
+    let totalExpense = expenses.reduce((sum, item) => sum + item.amount, 0);
+    let balance = totalIncome - totalExpense;
+
+    document.getElementById("totalIncome").textContent = money(totalIncome);
+    document.getElementById("totalExpense").textContent = money(totalExpense);
+    document.getElementById("balance").textContent = money(balance);
+    document.getElementById("staffCount").textContent = workers.length;
+
+    document.getElementById("homeIncome").textContent = money(totalIncome);
+    document.getElementById("homeExpense").textContent = money(totalExpense);
+
+    document.getElementById("reportIncome").textContent = money(totalIncome);
+    document.getElementById("reportExpense").textContent = money(totalExpense);
+    document.getElementById("reportBalance").textContent = money(balance);
+
+    document.getElementById("incomeList").innerHTML = "";
+    incomes.forEach((item, index) => {
+        let row = document.createElement("tr");
+        let name = document.createElement("td");
+        let amount = document.createElement("td");
+        let action = document.createElement("td");
+        let btn = document.createElement("button");
+
+        name.textContent = item.name;
+        amount.textContent = money(item.amount);
+        btn.textContent = "O‘chirish";
+        btn.className = "delete";
+        btn.onclick = () => {
+            incomes.splice(index, 1);
+            update();
+        };
+
+        action.appendChild(btn);
+        row.append(name, amount, action);
+        document.getElementById("incomeList").appendChild(row);
+    });
+
+    document.getElementById("expenseList").innerHTML = "";
+    expenses.forEach((item, index) => {
+        let row = document.createElement("tr");
+        let name = document.createElement("td");
+        let amount = document.createElement("td");
+        let action = document.createElement("td");
+        let btn = document.createElement("button");
+
+        name.textContent = item.name;
+        amount.textContent = money(item.amount);
+        btn.textContent = "O‘chirish";
+        btn.className = "delete";
+        btn.onclick = () => {
+            expenses.splice(index, 1);
+            update();
+        };
+
+        action.appendChild(btn);
+        row.append(name, amount, action);
+        document.getElementById("expenseList").appendChild(row);
+    });
+
+    document.getElementById("workerList").innerHTML = "";
+    workers.forEach(item => {
+        let row = document.createElement("tr");
+        let name = document.createElement("td");
+        let salary = document.createElement("td");
+
+        name.textContent = item.name;
+        salary.textContent = money(item.salary);
+
+        row.append(name, salary);
+        document.getElementById("workerList").appendChild(row);
+    });
+}
+
+// Hisobotni CSV formatida yuklash
+function downloadReport() {
+    let rows = [
+        ["Turi", "Nomi", "Summa"],
+        ...incomes.map(x => ["Daromad", x.name, x.amount]),
+        ...expenses.map(x => ["Xarajat", x.name, x.amount])
+    ];
+
+    let csv = "\uFEFF" + rows.map(row =>
+        row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(";")
+    ).join("\n");
+
+    let blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+    let link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "finance-report.csv";
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+}
+
+update();
+</script>
+
+</body>
+</html>
